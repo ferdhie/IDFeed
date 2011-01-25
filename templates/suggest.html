@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<head>
+	<title>Berita Indonesia</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" type="text/css" media="screen" href="/static/main.css" />
+	<link rel="shortcut icon" href="/favicon.ico" />
+        <style type="text/css">
+        html,body { margin:0;padding:0; }
+        #suggest {margin:auto; width:250px;}
+        </style>
+        <script type="text/javascript">
+            function do_close() {
+                self.parent.tb_remove();
+                return false;
+            }
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-20451183-1']);
+            _gaq.push(['_trackPageview']);
+
+            (function() {
+              var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+              ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+              var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+</head>
+<body id="suggestpage">
+{% if success %}
+<p>Terima kasih, permintaan anda akan kami proses.</p>
+<script type="text/javascript">
+    setTimeout(function() { self.parent.tb_remove(); }, 3000);
+</script>
+{% else %}
+<form method="post" action="/suggest">
+    <div id="suggest">
+        {% if error %}
+        <p class="error">{{error}}</p>
+        {% endif %}
+        <p>
+            <label for="id_url">Masukkan URL Feed dibawah</label><br />
+            <input type="text" name="url" id="id_url" size="30" />
+        </p>
+        <p>
+            <input type="submit" value="Kirim" class="button" />
+            | <a href="javascript:;" onclick="return do_close()" title="Batal">batal</a>
+        </p>
+    </div>
+</form>
+{% endif %}
+</body>
+</html>

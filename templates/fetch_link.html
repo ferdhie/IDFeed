@@ -1,0 +1,17 @@
+					{% for item in link.entries %}
+
+					<li{% if forloop.counter > 10 %} class="folded"{% endif %}>
+						<div class="entry-link">
+							<a rel="external" href="{{item.link}}" class="entry-title" title="{{ item.pubdate|date:"d/m/y H:i" }}<br />{{ item.descr|escape }}<br class='clr' />">{{ item.title|escape }}</a>
+						</div>
+						<div class="entry-meta">
+							<a href="http://www.facebook.com/sharer.php?u={{item.link|unicode_urlencode}}&t={{item.title|urlencode}}" class="fb" title="Share di facebook"><img src="/static/facebook.gif" alt="share di facebook"/></a>
+							<a href="http://twitter.com/home?status={{item.title|unicode_urlencode}}+{{item.link|urlencode}}" class="twitter" title="Tweet berita ini"><img src="/static/twitter.gif" alt="tweet berita ini"/></a>
+						</div>
+						<div class="clr"></div>
+					</li>
+					{% if forloop.counter == 10 %}
+					<li><a class="more" href="javascript:;">&lsaquo;&nbsp;more&nbsp;&rsaquo;</a></li>
+					{% endif %}
+
+					{% endfor %}

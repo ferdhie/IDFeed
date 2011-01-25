@@ -1,0 +1,74 @@
+{%extends "onlyus.html"%}
+{%block title%}Console{%endblock%}
+{%block body%}
+<style type="text/css" media="screen">
+#result, #statement { font:12px "Bitstream Vera Sans Mono", "Courier New", monospace; }
+</style>
+
+<div id="content">
+    <pre id="result"></pre>
+    <form id="statementform" method="post" action="/console">
+    <div>
+        <p><textarea id="statement" name="statement" cols="100" rows="10">{{ statement|escape }}</textarea></p>
+        <p><input type="submit" value="Submit" class="button" id="submitButton" /></p>
+    </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+var getXHR = function() {
+    if (window.XMLHttpRequest) {
+        getXHR = function() {
+            return new XMLHttpRequest();
+        }
+    } else if (window.ActiveXObject) {
+        try {
+            getXHR = function() {
+                return new ActiveXObject('Msxml2.XMLHTTP');
+            }
+        } catch(e) {
+            getXHR = function() {
+                return new ActiveXObject('Microsoft.XMLHTTP');
+            }
+        }
+    }
+    return getXHR();
+}
+
+window.onload = function() {
+    var form = document.getElementById('statementform');
+    form.onsubmit = function() {
+        var req = getXHR();
+        var button = document.getElementById('submitButton');
+        if (!req) {
+            alert("Your browser didn't support XmlHttpRequest");
+            return false;
+        }
+
+        req.onreadystatechange = function() {
+            if (req.readyState == 4) {
+                document.getElementById('result').innerHTML = req.responseText;
+                button.value = 'Submit';
+            }
+        };
+
+        // build the query parameter string
+        var params = '';
+        for (var i=0, len=form.elements.length; i<len; i++) {
+            var elem = form.elements[i];
+            if (elem.type != 'submit' && elem.type != 'button' && elem.id != 'caret') {
+                var value = encodeURIComponent(elem.value).replace(/\+/g, '%2B'); // escape ignores +
+                params += '&' + elem.name + '=' + value;
+            }
+        }
+
+        // send the request and tell the user.
+        button.value = 'executing...';
+        req.open(form.method, form.action, true);
+        req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        req.send(params);
+        return false;
+    };
+};
+</script>
+{%endblock%}

@@ -1,0 +1,13 @@
+{% extends "base_mobile.html" %}
+{% block title %}Berita Indonesia{% endblock %}
+{% block titlebody %}Berita Indonesia{% endblock %}
+
+{% block body %}
+	<ul>
+	{% for links2 in links %}
+		{% for link in links2 %}
+		<li><a href="/feed/{{ link.key }}" title="Read feed for {{ link.title|escape }}">{{ link.title|escape }}</a></li>
+		{% endfor %}
+	{% endfor %}
+	</ul>
+{% endblock %}

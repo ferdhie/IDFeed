@@ -1,0 +1,4 @@
+cron:
+- description: update feed tiap 2 menit
+  url: /update
+  schedule: every 2 minutes

@@ -1,0 +1,119 @@
+{%extends "onlyus.html"%}
+{%block title%}Links{%endblock%}
+
+{%block headtag%}
+<script type="text/javascript">
+$(function() {
+    $("#allkeys").click(function() {
+	if (this.checked) {
+	    $(".rowcheck").attr('checked', 'checked');
+	} else $(".rowcheck").removeAttr('checked');
+
+	if ($(".rowcheck:checked").length == 0)
+	    $("#delete_button").attr('disabled', 'disabled')
+	else $("#delete_button").removeAttr('disabled')
+    });
+
+    $(".rowcheck").click(function() {
+	if ($(".rowcheck:checked").length == 0) {
+	    $("#delete_button").attr('disabled', 'disabled')
+	    $("#allkeys").removeAttr('checked')
+	} else {
+	    $("#delete_button").removeAttr('disabled')
+	    $("#allkeys").attr('checked', 'checked');
+	}
+    });
+
+    $("#delete_button").click(function() {
+	if ($(".rowcheck:checked").length > 0)
+	    return confirm("Delete the checked item?");
+	return false;
+    })
+
+    $(".inline_text").click(function() {
+	$(this).hide();
+	var $next = $(this).next( '.inline_edit' );
+	$next.show();
+
+	var key = $next.attr('name').split('-', 2)[1]
+	if ( $("#id-"+key).length == 0 ) {
+	    $next.append('<input type="hidden" name="updated" id="id-'+key+'" value="'+key+'" />')
+	}
+    });
+})
+</script>
+{%endblock%}
+
+{%block body%}
+
+<div id="content">
+<h1>Links</h1>
+
+<form method="post" action="/links/update">
+<table class="list-table">
+<tr>
+    <th class="cc"><input type="checkbox" id="allkeys" /></th>
+    <th>Key</th>
+    <th>Feed</th>
+    <th>Priority</th>
+    <th>Homepage</th>
+    <th>Title</th>
+    <th>Description</th>
+</tr>
+<tr>
+    <td class="cc">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>
+	<input type="text" name="url-new" size="30" />
+    </td>
+    <td>
+	<input type="text" name="priority-new" size="5" />
+    </td>
+    <td>
+	<input type="text" name="home-new" size="20" />
+    </td>
+    <td>
+	<input type="text" name="title-new" size="20" />
+    </td>
+    <td>
+	<input type="text" name="description-new" size="20" />
+    </td>
+</tr>
+{%for link in links%}
+<tr>
+    <td class="cc"><input class="rowcheck" type="checkbox" id="key{{ forloop.counter }}" name="keys" value="{{ link.key }}" /></td>
+    <td>{{ link.key.id_or_name }}</td>
+    <td>
+	<span class="inline_text">{{ link.url|escape }}</span>
+	<input class="inline_edit" type="text" name="url-{{link.key}}" value="{{ link.url|escape }}" size="30" />
+    </td>
+    <td>
+	<span class="inline_text">{{ link.priority|default:"0"|escape }}</span>
+	<input class="inline_edit" type="text" name="priority-{{link.key}}" value="{{ link.priority|default:"0"|escape }}" size="5" />
+    </td>
+    <td>
+	<span class="inline_text">{{ link.homepage|default:"none"|escape }}</span>
+	<input class="inline_edit" type="text" name="home-{{link.key}}" value="{{ link.homepage|escape }}" size="20" />
+    </td>
+    <td>
+	<span class="inline_text">{{ link.title|default:"none"|escape }}</span>
+	<input class="inline_edit" type="text" name="title-{{link.key}}" value="{{ link.title|escape }}" size="20" />
+    </td>
+    <td>
+	<span class="inline_text">{{ link.description|default:"none"|escape }}</span>
+	<input class="inline_edit" type="text" name="description-{{link.key}}" value="{{ link.description|escape }}" size="20" />
+    </td>
+</tr>
+{%endfor%}
+<tr>
+    <th colspan="7">
+        <input class="button" type="submit" name="save" value="Save" />
+        <input class="button" type="submit" id="delete_button" name="delete" value="Delete" />
+    </th>
+</tr>
+</table>
+</form>
+
+</div>
+
+{%endblock%}

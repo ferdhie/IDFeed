@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>{% block title %}{% endblock %} | Mobile Edition</title>
+<style type="text/css">
+body {margin: 0px; padding: 0px; font-family: "helvetica", "arial", sans-serif; font-style: normal; font-size: medium; background: #FFFFFF; color: #000000;}
+#header  {background: #c00; color: #FFFFFF; margin: 0px 0px 5px 0px; padding: 2px;}
+#content {padding: 3px;}
+#footer  {clear: left; border-top: 1px solid #000000; color: #000000; background: #D9D9D9; margin: 5px 0px 2px 0px; padding: 2px; font-size: x-small;}
+h2 {font-size: medium; font-weight: bold; margin: 0px; padding: 5px 0px 5px 0px;}
+ul {padding: 0px; margin: 0px; list-style-type:none; list-style-position:inside;}
+li {font-size: small; padding: 1px 0px 1px 0px; border-bottom:1px solid #ddd;}
+li a {display:block;padding:2px;}
+a {text-decoration: none;}
+a:hover {background:#eee;}
+.cl {clear: both; height: 5px;}
+</style>
+<meta name="description" content="this is the adapted version for mobile devices" />
+<meta name="ABSTRACT" content="this is the adapted version for mobile devices" />
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-20451183-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>{% block head %}{% endblock %}
+</head>
+<body>
+<div id="header">{% block titlebody %}{% endblock %}</div>
+<div id="content">
+    {% block body %}{% endblock %}
+</div>
+<div id="footer">&copy; ORCA | mobile edition</div>
+</body>
+</html>

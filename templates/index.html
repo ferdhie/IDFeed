@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<head>
+	<title>Berita Indonesia</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" type="text/css" media="screen" href="/static/main.css" />
+	<link rel="shortcut icon" href="/favicon.ico" />
+        <script type="text/javascript" src="/static/jquery.js"></script>
+        <script type="text/javascript" src="/static/jquery.tipTip.minified.js"></script>
+        <script type="text/javascript" src="/static/thickbox.js"></script>
+	<script type="text/javascript">
+		var ajax_load = function(k) {
+			$.get( '/fetch?key='+k, function(data) {
+				$("#links-"+k).html( data );
+				$("#links-"+k+" .entry-title").tipTip({defaultPosition:"bottom",maxWidth:"300px"});
+
+				$("#links-"+k+" .more").click(function() {
+					$(this).parent().parent().children('.folded').toggle();
+				});
+
+				setTimeout( function(){ ajax_load(k) }, 1000*60*5 );
+			}, 'html');
+		}
+
+		$(function() {
+			$('.entry-title').tipTip({defaultPosition:"bottom",maxWidth:"300px"});
+
+			$('.more').click(function() {
+				$(this).parent().parent().children('.folded').toggle();
+			});
+
+			{% for links2 in links %}
+				{% for link in links2 %}
+					setTimeout( function(){ ajax_load('{{link.key}}') }, 1000*60*5 );
+				{% endfor %}
+			{% endfor %}
+
+			tb_init('#suggest_link');
+
+			$(".fb").click(function() {
+				var match = /^http:\/\/www\.facebook\.com\/sharer\.php\?u=([^&]+)&t=(.*)$/.exec($(this).attr('href'))
+				if ( match ) {
+					var url = match[1];
+					var title = match[2];
+					$.getJSON('/url?url='+url, function( data ) {
+						location.href = 'http://www.facebook.com/sharer.php?u='+encodeURIComponent(data['shorturl'])+'&t='+title;
+					});
+					return false;
+				}
+				return true;
+			});
+
+			$(".twitter").click(function() {
+				var match = /status=(.*?)\+(.*)$/.exec($(this).attr('href'));
+				if ( match ) {
+					var url = match[2];
+					var title = match[1];
+					$.getJSON( '/url?url='+url, function( data ) {
+						location.href = 'http://twitter.com/home?status='+title+' '+data['shorturl'];
+					})
+					return false;
+				}
+				return true;
+			});
+		})
+
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-20451183-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+		  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+</head>
+<body>
+<div id="doc3" class="yui-t7">
+	<div id="hd">
+		<div class="header">
+			<h1>Berita Indonesia</h1>
+			<ul id="mainmenu">
+				<li><a id="suggest_link" href="/suggest?TB_iframe=true&width=350&height=150" title="Sarankan URL">Saran URL</a></li>
+			</ul>
+		</div>
+	</div>
+	<div id="bd">
+		{% for links2 in links %}
+		<div class="yui-gb">
+			{% for link in links2 %}
+			<div class="yui-u{% if forloop.first %} first{% endif %}">
+				<h2><a href="{{ link.homepage }}" class="title">{{ link.title|escape }}</a></h2>
+				<ul id="links-{{link.key}}" class="links">
+					{% for item in link.entries %}
+					<li{% if forloop.counter > 10 %} class="folded"{% endif %}>
+						<div class="entry-link">
+							<a rel="external" href="{{item.link}}" class="entry-title" title="{{ item.pubdate|date:"d/m/y H:i" }}<br />{{ item.descr|escape }}<br class='clr' />">{{ item.title|escape }}</a>
+						</div>
+						<div class="entry-meta">
+							<a href="http://www.facebook.com/sharer.php?u={{item.link|unicode_urlencode}}&amp;t={{item.title|unicode_urlencode}}" class="fb" title="Share di facebook"><img src="/static/facebook.gif" alt="share di facebook"/></a>
+							<a href="http://twitter.com/home?status={{item.title|unicode_urlencode}}+{{item.link|unicode_urlencode}}" class="twitter" title="Tweet berita ini"><img src="/static/twitter.gif" alt="tweet berita ini"/></a>
+						</div>
+						<div class="clr"></div>
+					</li>
+					{% if forloop.counter == 10 %}
+					<li><a class="more" href="javascript:;">&lsaquo;&nbsp;more&nbsp;&rsaquo;</a></li>
+					{% endif %}
+					{%endfor%}
+				</ul>
+			</div>
+			{% endfor %}
+		</div>
+		{% endfor %}
+	</div>
+	<div id="ft">
+		<p>&copy; ORCA</p>
+	</div>
+</div>
+</body>
+</html>

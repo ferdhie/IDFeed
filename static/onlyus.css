@@ -1,0 +1,84 @@
+html, body { font-family: Arial, sans-serif; background-color:#fff; margin:0; padding:0; font-size:14px; }
+#header { background:#E5ECFF; position: relative; height:3.7em; border-bottom:2px solid #A8BFFF; }
+#account-link { position: absolute; top:0px; right:0px; padding:5px; font-size:12px; }
+
+#mainmenu { list-style:none; margin:0; padding:0; position: absolute; bottom: -1px; left: 20px;}
+#mainmenu li { float:left;  margin: 0 5px 0 0; padding: 0; height:2em; }
+#mainmenu li a { border: 1px solid #A8BFFF; border-bottom:none; display: block; float: left; text-decoration: none; font-size: 100%; font-weight: bold; height: 2em; line-height: 1.7em; background:#A8BFFF; color:#000; padding: 0px 6px; _width: 1%;}
+#mainmenu li a:hover { background:#fff; color:#000; }
+
+#submenu { list-style:none; margin:0 0 0 1em; padding:0; }
+#submenu li { float:left;  margin: 0; padding: 0; }
+#submenu li a { display:block; float:left; text-decoration:none; font-size:90%; line-height:2em; padding:0px 6px; background:none;}
+#submenu li a:hover { background:#ddd; color:#222; }
+
+#content { padding:10px; }
+#content-main { float:left; }
+#content-sidebar { float:left; margin-left:2em; background:#E5ECFF; padding:10px; border:1px solid #A8BFFF; }
+
+h1, h2, h3 { font-weight:normal; }
+#content h1 { margin:0 0 1em; padding:0 0 0 .5em; font-size:1.4em; border-bottom:3px solid #E5ECFF; line-height:.5em; font-family:Georgia,"Times New Roman",times,serif;}
+
+label { cursor:pointer; margin:0; padding:0; line-height:2em; }
+input, select, textarea { margin:0; padding:4px; background:#eee; border: 1px solid #ccc; border-top-color: #777; border-bottom-color: #DDD; font-weight:normal;}
+input.disabled, select.disabled, textarea.disabled { border-color: #eee; }
+input:focus, textarea:focus { background: #fff; }
+input.button {border-top-color: #DDD; border-bottom-color: #777;}
+
+.clear { clear:both; line-height:1px; font-size:1px; margin:0; padding:0; border:none; background:transparent; }
+
+form { margin:0; padding:0; }
+.formfield { margin:0; padding:0;margin-bottom:1em; }
+.formbox { float:left; margin-right:1em; }
+
+.categorylist { height:500px; overflow:auto; }
+.categorylist ul { list-style:none; margin:0; padding:0; background:#eee; }
+.categorylist li { padding:2px 5px; }
+.categorylist li label, .categorylist li input { font-size:80%; margin:0; padding:0; }
+
+ul.errorlist { list-style:none; margin:0; padding:0; font-size:small; }
+ul.errorlist li { color:#c00; }
+
+.list-table { min-width:760px; width:80%; border-width: 0px; border-spacing:0px; border-style:none; border-color:#fff; border-collapse:collapse; background-color:#fff; margin:10px 0;}
+.list-table td, .list-table th { border-width:0px 0px 1px 0px; padding: 5px; border-style: none none solid none; border-color: #fff #fff #ddd #fff; moz-border-radius: 0px; font-size:14px; }
+.list-table th { background:#eee; color:#222; font-weight:bold; text-align:left;}
+.list-table td a { text-decoration:none; }
+.list-table td.cmd, .list-table th.cmd { width:30px; text-align:center; }
+.list-table td.cc, .list-table th.cc { width:16px; }
+.list-table th input, .list-table th select { font-size:11px; }
+
+.form-table th { text-align:right; vertical-align:top; }
+.form-table td { text-align:left; vertical-align:top;}
+
+.gfc-avatar { float:left; border:1px solid #ddd; padding:1px; margin-right:5px; margin-top:0; }
+.gfc-comment { float:left; }
+.comment-story p { line-height:1.5em; margin:0 0 1em 0; padding:0; }
+
+.pagination { font-size: small; }
+.pagination a { font-size:x-small; text-transform:uppercase; text-decoration:none; margin:2px; padding:5px; background:#eee; border:1px solid #ccc; border-top-color: #DDD; border-bottom-color: #777; }
+.pagination a:hover { background:#FFE699; color:#E60000; }
+.pagination span { font-size:x-small; color:#999; text-transform:uppercase; margin:2px; padding:5px;  border:1px solid #ddd; }
+
+.fbgreybox, .fbbluebox, .fbinfobox, .fberrorbox { color:#333333; padding:10px; font-size:13px; font-weight:bold; margin:5px; }
+.fbgreybox { background-color: #f7f7f7; border: 1px solid #cccccc; }
+.fbbluebox { background-color: #eceff6; border: 1px solid #d4dae8; }
+.fbinfobox { background-color: #fff9d7; border: 1px solid #e2c822; }
+.fberrorbox { background-color: #ffebe8; border: 1px solid #dd3c10; }
+
+div.tagMatches {
+    margin: 5px 0;
+    padding:5px;
+}
+
+div.tagMatches span {
+    padding: 2px;
+    margin-right: 4px;
+    background-color: #eee;
+    color: #A8BFFF;
+    cursor: pointer;
+}
+
+.toolbar { clear:both; }
+.toolbar_item { float:left; margin-right:20px; }
+
+.inline_edit {display:none;}

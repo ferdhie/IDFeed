@@ -1,0 +1,12 @@
+{% extends "base_mobile.html" %}
+{% block title %}{{ link.title|escape }}{% endblock %}
+{% block titlebody %}{{ link.title|escape }}{% endblock %}
+
+{% block body %}
+        <div style="padding-bottom: 5px;"><a href="/">&laquo; back</a></div>
+	<ul>
+	{% for item in link.entries %}
+            <li><a rel="external" href="{{item.link}}" title="{{ item.pubdate|date:"d/m/y H:i" }} | {{ item.descr|striptags }}">{{ item.title|escape }}</a></li>
+	{% endfor %}
+	</ul>
+{% endblock %}
